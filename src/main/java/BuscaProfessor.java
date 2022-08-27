@@ -16,9 +16,9 @@ public class BuscaProfessor {
                 jsonObject.get("nomeProfessor").getAsString(),
                 jsonObject.get("horarioAtendimento").getAsString(),
                 jsonObject.get("periodo").getAsString()
-                );
+        );
     }
-    
+
     public boolean verificaArrayListExistente(int id){
         boolean professorExistente = professorService.professorExistente(id);
 
