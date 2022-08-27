@@ -19,14 +19,4 @@ public class BuscaProfessor {
         );
     }
 
-    public boolean verificaArrayListExistente(int id){
-        boolean professorExistente = professorService.professorExistente(id);
-
-        if(professorExistente){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
 }
