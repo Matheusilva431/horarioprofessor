@@ -1,70 +1,77 @@
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 
-@RunWith(MockitoJUnitRunner.class)
 public class TesteBuscaProfessor {
-    @Mock
-    private ProfessorService service;
-    private BuscaProfessor buscaProfessor;
+
+    ProfessorService service;
+    BuscaProfessor buscaProfessor;
 
     @Before
     public void setup(){
+        service = new MockProfessorService();
         buscaProfessor = new BuscaProfessor(service);
-        Mockito.when(service.busca(12)).thenReturn(ProfessorConst.rosimara);
-        Mockito.when(service.busca(17)).thenReturn(ProfessorConst.renan);
-        Mockito.when(service.busca(25)).thenReturn(ProfessorConst.chris);
     }
 
     @Test
     public void testeBuscaProfessorRosimara(){
-        Professor rosimara = buscaProfessor.buscaProfessor(12);
+        Professor rosimara = buscaProfessor.buscaProfessor(4);
         assertEquals("Rosimara", rosimara.getNomeProfessor());
         assertEquals("Segunda-feira 17:30-19:30", rosimara.getHorarioAtendimento());
-        assertEquals("Noturno", rosimara.getPeriodo());
+        assertEquals("7°", rosimara.getPeriodo());
     }
 
     @Test
     public void testeBuscaProfessorRenan(){
-        Professor renan = buscaProfessor.buscaProfessor(17);
+        Professor renan = buscaProfessor.buscaProfessor(6);
         assertEquals("Renan", renan.getNomeProfessor());
         assertEquals("Quarta-feira 18:30-19:50", renan.getHorarioAtendimento());
-        assertEquals("Noturno", renan.getPeriodo());
+        assertEquals("6°", renan.getPeriodo());
     }
 
     @Test
     public void testeBuscaProfessorChris(){
-        Professor chris = buscaProfessor.buscaProfessor(25);
+        Professor chris = buscaProfessor.buscaProfessor(10);
         assertEquals("Christopher", chris.getNomeProfessor());
         assertEquals("Sexta-feira 15:30-16:50", chris.getHorarioAtendimento());
-        assertEquals("Diurno", chris.getPeriodo());
+        assertEquals("8°", chris.getPeriodo());
     }
 
     @Test
-    public void testeBuscaProfessorRosimarafail(){
-        Professor rosimara = buscaProfessor.buscaProfessor(12);
-        assertEquals("Rosimara", rosimara.getNomeProfessor());
-        assertEquals("Segunda 17:30-19:30", rosimara.getHorarioAtendimento());
-        assertEquals("Noturno", rosimara.getPeriodo());
+    public void testeBuscaProfessorfail(){
+        Professor inexistente = buscaProfessor.buscaProfessor(-10);
+        assertEquals("Inexistente", inexistente.getNomeProfessor());
+        assertEquals("Inexistente", inexistente.getHorarioAtendimento());
+        assertEquals("Inexistente", inexistente.getPeriodo());
     }
 
     @Test
-    public void testeBuscaProfessorRenanfail(){
+    public void testeBuscaProfessorfail2(){
+        Professor inexistente = buscaProfessor.buscaProfessor(-4);
+        assertEquals("Inexistente", inexistente.getNomeProfessor());
+        assertEquals("Inexistente", inexistente.getHorarioAtendimento());
+        assertEquals("Inexistente", inexistente.getPeriodo());
+    }
+
+    @Test
+    public void testeBuscaProfessorpadrao(){
         Professor renan = buscaProfessor.buscaProfessor(17);
-        assertEquals("Renan", renan.getNomeProfessor());
-        assertEquals("Quarta-feira 18:30-19:50", renan.getHorarioAtendimento());
-        assertEquals("Diurno", renan.getPeriodo());
+        assertEquals("Teams", renan.getNomeProfessor());
+        assertEquals("Indeterminado", renan.getHorarioAtendimento());
+        assertEquals("1° ao 10°", renan.getPeriodo());
     }
 
     @Test
-    public void testeBuscaProfessorChrisfail(){
-        Professor chris = buscaProfessor.buscaProfessor(25);
-        assertEquals("Chris", chris.getNomeProfessor());
-        assertEquals("Sexta-feira 15:30-16:50", chris.getHorarioAtendimento());
-        assertEquals("Diurno", chris.getPeriodo());
+    public void testeBuscaProfessorValido(){
+        boolean professorValido = buscaProfessor.verificaArrayListExistente(10);
+        assertTrue(professorValido);
+
+    }
+
+    @Test
+    public void testeBuscaProfessorInvalidofail(){
+        boolean professorValido = buscaProfessor.verificaArrayListExistente(-10);
+        assertTrue(!professorValido);
+
     }
 }
