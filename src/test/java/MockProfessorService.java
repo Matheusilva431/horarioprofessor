@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class MockProfessorService implements  ProfessorService{
 
     @Override
@@ -18,5 +20,19 @@ public class MockProfessorService implements  ProfessorService{
         else{
             return ProfessorConst.padrao;
         }
+    }
+
+    @Override
+    public boolean professorExistente(int id) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(4);
+        list.add(6);
+        list.add(10);
+
+        for (int i=0; i < list.size(); i++){
+            return list.get(i).equals(id) || list.get(i).equals(id);
+        }
+
+        return false;
     }
 }

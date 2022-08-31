@@ -19,4 +19,9 @@ public class BuscaProfessor {
         );
     }
 
+    public boolean verificaArrayListExistente(int id) {
+        boolean professorExistente = professorService.professorExistente(id);
+
+        return professorExistente;
+    }
 }
